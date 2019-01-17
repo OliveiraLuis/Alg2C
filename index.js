@@ -90,7 +90,7 @@ var adicionaTiposDeVariaveis = function (frase) {
  *
  */
 var adicionaAtribuidores = function (frase) {
-    frase = substituiOcorrencia(frase, /=/g, '==');
+    frase = substituiOcorrencia(frase, / = /g, '==');
     frase = substituiOcorrencia(frase, /<-/g, '=');
     frase = substituiOcorrencia(frase, /<>/g, '!=');
     frase = substituiOcorrencia(frase, /E/g, '&&');
@@ -100,6 +100,6 @@ var adicionaAtribuidores = function (frase) {
 }
 
 var removerFrasesInutesis = function (frase) {
-    frase = substituiOcorrencia(frase, /(^\{...*\})/g, '');
+    frase = substituiOcorrencia(frase, /{.*}/g, '');
     return frase;   
 }
