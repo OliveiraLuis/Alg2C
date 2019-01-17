@@ -33,7 +33,9 @@ window.onload = function () {
  *
  */
 var mudaArquivoparaC = function (frase) {
-    return adicionaAbreChaves(frase);
+    frase = adicionaAbreChaves(frase);
+    frase = adicionaFechaChaves(frase);
+    return frase;
 }
 
 /**
@@ -50,9 +52,21 @@ var substituiOcorrencia = function (frase, ocorrencia, substituta) {
  *
  */
 var adicionaAbreChaves = function (frase) {
-    abreChave = '{';
-    frase = substituiOcorrencia(frase, 'inicio', abreChave);
-    frase = substituiOcorrencia(frase, 'entao', abreChave);
-    frase = substituiOcorrencia(frase, 'faca', abreChave);
+    caractere = '{';
+    frase = substituiOcorrencia(frase, /inicio/g, caractere);
+    frase = substituiOcorrencia(frase, /entao/g, caractere);
+    frase = substituiOcorrencia(frase, /faca/g, caractere);
+    return frase;
+}
+
+/**
+ * Função para colocar o '}' nos lugares apropriados
+ *
+ */
+var adicionaFechaChaves = function (frase) {
+    caractere = '}';
+    frase = substituiOcorrencia(frase, /fim;/g, caractere);
+    frase = substituiOcorrencia(frase, /fim-enquanto;/g, caractere);
+    frase = substituiOcorrencia(frase, /senao/g, caractere + 'senao');
     return frase;
 }
