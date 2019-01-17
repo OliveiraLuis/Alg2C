@@ -35,6 +35,9 @@ window.onload = function () {
 var mudaArquivoparaC = function (frase) {
     frase = adicionaAbreChaves(frase);
     frase = adicionaFechaChaves(frase);
+    frase = adicionaTiposDeVariaveis(frase);
+    frase = adicionaAtribuidores(frase);
+    frase = removerFrasesInutesis(frase);
     return frase;
 }
 
@@ -45,7 +48,6 @@ var mudaArquivoparaC = function (frase) {
 var substituiOcorrencia = function (frase, ocorrencia, substituta) {
     return frase.replace(ocorrencia, substituta);
 }
-
 
 /**
  * Função para colocar o '{' nos lugares apropriados
@@ -69,4 +71,35 @@ var adicionaFechaChaves = function (frase) {
     frase = substituiOcorrencia(frase, /fim-enquanto;/g, caractere);
     frase = substituiOcorrencia(frase, /senao/g, caractere + 'senao');
     return frase;
+}
+
+/**
+ * Função para colocar os nomes das váriaveis
+ *
+ */
+var adicionaTiposDeVariaveis = function (frase) {
+    frase = substituiOcorrencia(frase, /inteiro:/g, 'int');
+    frase = substituiOcorrencia(frase, /real:/g, 'float');
+    frase = substituiOcorrencia(frase, /caractere:/g, 'char');
+    frase = substituiOcorrencia(frase, /logico:/g, 'bool');
+    return frase;
+}
+
+/**
+ * Função para mudar os atribuidores
+ *
+ */
+var adicionaAtribuidores = function (frase) {
+    frase = substituiOcorrencia(frase, /=/g, '==');
+    frase = substituiOcorrencia(frase, /<-/g, '=');
+    frase = substituiOcorrencia(frase, /<>/g, '!=');
+    frase = substituiOcorrencia(frase, /E/g, '&&');
+    frase = substituiOcorrencia(frase, /OU/g, '||');
+    frase = substituiOcorrencia(frase, /NAO/g, '!');
+    return frase;
+}
+
+var removerFrasesInutesis = function (frase) {
+    frase = substituiOcorrencia(frase, /(^\{...*\})/g, '');
+    return frase;   
 }
