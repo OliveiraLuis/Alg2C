@@ -13,7 +13,7 @@ window.onload = function () {
                 var fileReader = new FileReader();
                 fileReader.onload = function (e) {
                     var fileContents = document.getElementById('filecontents');
-                    fileContents.innerText = fileReader.result;
+                    fileContents.innerText = substituiOcorrencia(fileReader.result, 'inicio', '{');
                 }
                 fileReader.readAsText(fileTobeRead);
             }
@@ -26,4 +26,12 @@ window.onload = function () {
     else {
         alert("Arquivo(s) não suportado(s)");
     }
+}
+
+/**
+ * Função para encontrar a 'ocorrencia' e substituir pela 'substituta'
+ *
+ */
+var substituiOcorrencia = function (frase, ocorrencia, substituta) {
+    return frase.replace(ocorrencia, substituta)
 }
