@@ -13,7 +13,7 @@ window.onload = function () {
                 var fileReader = new FileReader();
                 fileReader.onload = function (e) {
                     var fileContents = document.getElementById('filecontents');
-                    fileContents.innerText = substituiOcorrencia(fileReader.result, 'inicio', '{');
+                    fileContents.innerText = mudaArquivoparaC(fileReader.result);
                 }
                 fileReader.readAsText(fileTobeRead);
             }
@@ -32,6 +32,27 @@ window.onload = function () {
  * Função para encontrar a 'ocorrencia' e substituir pela 'substituta'
  *
  */
+var mudaArquivoparaC = function (frase) {
+    return adicionaAbreChaves(frase);
+}
+
+/**
+ * Função para encontrar a 'ocorrencia' e substituir pela 'substituta'
+ *
+ */
 var substituiOcorrencia = function (frase, ocorrencia, substituta) {
-    return frase.replace(ocorrencia, substituta)
+    return frase.replace(ocorrencia, substituta);
+}
+
+
+/**
+ * Função para colocar o '{' nos lugares apropriados
+ *
+ */
+var adicionaAbreChaves = function (frase) {
+    abreChave = '{';
+    frase = substituiOcorrencia(frase, 'inicio', abreChave);
+    frase = substituiOcorrencia(frase, 'entao', abreChave);
+    frase = substituiOcorrencia(frase, 'faca', abreChave);
+    return frase;
 }
