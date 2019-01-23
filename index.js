@@ -71,6 +71,7 @@ let adicionaFechaChaves = function (texto) {
     texto = substituiOcorrencia(texto, /fim-enquanto;/g, caractere);
     texto = substituiOcorrencia(texto, /fim-se;/g, caractere);
     texto = substituiOcorrencia(texto, /fim-funcao;/g, caractere);
+    texto = substituiOcorrencia(texto, /fim-procedimento;/g, caractere);
     texto = substituiOcorrencia(texto, /senao/g, caractere + 'senao');
     return texto;
 }
@@ -107,6 +108,7 @@ let adicionaAtribuidores = function (texto) {
  */
 let removerFrasesInutesis = function (texto) {
     texto = substituiOcorrencia(texto, /{.*}/g, '');
-    return texto;   
+    texto = substituiOcorrencia(texto, /(fim-algoritmo).*/g, '');
+    return texto;
 }
 
