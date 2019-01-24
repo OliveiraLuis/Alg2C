@@ -33,6 +33,7 @@ window.onload = function () {
  *
  */
 let mudaArquivoparaC = function (texto) {
+    texto = adicionaFuncaoMain(texto);
     texto = adicionaAbreChaves(texto);
     texto = adicionaFechaChaves(texto);
     texto = adicionaTiposDeVariaveis(texto);
@@ -110,5 +111,13 @@ let removerFrasesInutesis = function (texto) {
     texto = substituiOcorrencia(texto, /{.*}/g, '');
     texto = substituiOcorrencia(texto, /(fim-algoritmo).*/g, '');
     return texto;
+}
+
+/**
+ * Função para adicionar main
+ *
+ */
+let adicionaFuncaoMain = function (texto) {
+    return substituiOcorrencia(texto, /^\s*(algoritmo).*/g, 'int main()');
 }
 
