@@ -39,6 +39,8 @@ let mudaArquivoparaC = function (texto) {
     texto = adicionaTiposDeVariaveis(texto);
     texto = adicionaAtribuidores(texto);
     texto = removerFrasesInutesis(texto);
+    texto = traduzPalavrasReservadasIO(texto);
+    texto = traduzPalavrasReservadasDecisao(texto);
     return texto;
 }
 
@@ -117,5 +119,26 @@ let removerFrasesInutesis = function (texto) {
  */
 let adicionaFuncaoMain = function (texto) {
     return substituiOcorrencia(texto, /^\s*(algoritmo).*/g, 'int main()');
+}
+
+/**
+ * Função para traduzir as palavras reservadas de entrada e saída
+ *
+ */
+let traduzPalavrasReservadasIO = function (texto) {
+    texto = substituiOcorrencia(texto, /escreva/g, 'printf');
+    texto = substituiOcorrencia(texto, /leia/g, 'scanf');
+    return texto;
+}
+
+/**
+ * Função para traduzir as palavras reservadas de decisão
+ *
+ */
+let traduzPalavrasReservadasDecisao = function (texto) {
+    texto = substituiOcorrencia(texto, /senao se/g, 'else if');
+    texto = substituiOcorrencia(texto, /se\(|se \(/g, 'if(');
+    texto = substituiOcorrencia(texto, /}senao|}\nsenao/g, '}else');
+    return texto;
 }
 
